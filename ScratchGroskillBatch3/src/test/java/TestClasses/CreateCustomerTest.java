@@ -12,6 +12,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import PageClasses.CreateCustomerPage;
+import Utilities.CommonFunctions;
 import Utilities.DriverInitialization;
 import Utilities.FetchDataFromExcel;
 
@@ -21,8 +22,8 @@ public class CreateCustomerTest extends DriverInitialization  {
 	@DataProvider (name="registerpatientdata")
 	public Object[][] dp1() {
         return new Object[][] {
-            {"Harry", "17-05-1995", "Lajpat Nagar", "Delhi", "NCR", "700055", "9765423145", "vtrtrt45gfewsrdc@gmail.com", "abygUmA"},
-            {"John", "13-04-1993", "Bandra", "Mumbai", "Maharashtra", "300045", "8764423145", "rje56rdfeyfec@gmail.com", "abygUmA"}
+            {"Harry", "17-05-1995", "Lajpat Nagar", "Delhi", "NCR", "700055", "9765423145","abygUmA"},
+            {"John", "13-04-1993", "Bandra", "Mumbai", "Maharashtra", "300045", "8764423145","abygUmA"}
         };
     }
 	
@@ -30,7 +31,7 @@ public class CreateCustomerTest extends DriverInitialization  {
 	@Test(dataProvider="registerpatientdata")
 	
 	
-	public void createCustomer(String uname,String dob,String add,String city,String state,String pin,String mob,String email,String pwd) throws IOException
+	public void createCustomer(String uname,String dob,String add,String city,String state,String pin,String mob,String pwd) throws IOException
 	{
 		
 		LoginTest.loginApplication();
@@ -43,7 +44,7 @@ public class CreateCustomerTest extends DriverInitialization  {
 		driver.findElement(By.xpath(CreateCustomerPage.state())).sendKeys(state);
 		driver.findElement(By.xpath(CreateCustomerPage.pin())).sendKeys(pin);
 		driver.findElement(By.xpath(CreateCustomerPage.mobile())).sendKeys(mob);
-		driver.findElement(By.xpath(CreateCustomerPage.email())).sendKeys(email);
+		driver.findElement(By.xpath(CreateCustomerPage.email())).sendKeys(CommonFunctions.generateRandomEmail());
 		driver.findElement(By.xpath(CreateCustomerPage.password())).sendKeys(pwd);
 		driver.findElement(By.xpath(CreateCustomerPage.submit())).click();
 		CustomerID=driver.findElement(By.xpath(CreateCustomerPage.getCustId())).getText();
